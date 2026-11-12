@@ -50,7 +50,8 @@ analysis.
 * ==============================================================================
 
 global basedir "." 
-* Example: "C:\Users\sswsa\Desktop\github\village-fund-education"
+* Example: "C:\Users\sswsa\Desktop\github\thaivf-education"
+* Note that there should be no space in the path.
 
 global datadir        "$basedir/data"
 global dodir          "$basedir/do"
@@ -67,10 +68,12 @@ global outdir         "$basedir/out"
 * Path for Townsend annual household resurveys ---------------
 global rawdatadir        "" 
 * Example: global rawdatadir "C:\Users\sswsa\Desktop\Data\Townsend_data\downloadedData"
+* Note that there should be no space in the path.
 
 * Path for Townsend key informant surveys --------------------
 global rawdatadir_keyinf "" 
 * Example: global rawdatadir_keyinf "C:\Users\sswsa\Desktop\Data\townsend_key_informant"
+* Note that there should be no space in the path.
 
 * Path for SES data 2000 -------------------------------------
 global sesdir            "" 
