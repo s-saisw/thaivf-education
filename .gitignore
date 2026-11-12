@@ -1,0 +1,6 @@
+*.dta
+*.csv
+*.stswp
+
+# External data
+!99external_GPP_long.dta

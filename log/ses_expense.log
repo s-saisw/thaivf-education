@@ -1,0 +1,294 @@
+----------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\sswsa\Desktop\github\village-fund-education/log\ses_expense.log
+  log type:  text
+ opened on:   9 Nov 2026, 11:41:47
+
+. 
+. use $datadir\ses_hhchar.dta, replace
+
+. merge 1:1 new_hh_n using $datadir\ses_rec2_hhlevel.dta
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            24,747  (_merge==3)
+    -----------------------------------------
+
+. drop _merge 
+
+. merge 1:1 new_hh_n using $datadir\ses_rec9.dta
+
+    Result                      Number of obs
+    -----------------------------------------
+    Not matched                             0
+    Matched                            24,747  (_merge==3)
+    -----------------------------------------
+
+. drop _merge 
+
+. 
+. gen exp_edu = j171
+
+. 
+. forvalues g = 1/6 {
+  2. 
+.         preserve
+  3.         quietly: keep if age_group_d`g' != 0
+  4.         
+.         forvalues i = 1/`=`g'-1' {
+  5.                 quietly: drop if age_group_d`i' != 0
+  6.         }
+  7.         
+.         forvalues i = `=`g'+1'/6 {
+  8.                 quietly: drop if age_group_d`i' != 0
+  9.         }
+ 10.         
+.         di "--------------group `g'---------------"
+ 11.         gen exp_edu_pchild = (exp_edu/age_group_d`g')*12
+ 12.         sum exp_edu_pchild, detail
+ 13.         
+.         gen exp_edu_pchild_zero = (exp_edu_pchild == 0)
+ 14.         sum exp_edu_pchild_zero
+ 15.         
+.         sum exp_edu_pchild if exp_edu_pchild > 0, detail 
+ 16.         
+.         gen agegr = `g'
+ 17.         save $datadir\ses_agegr`g'.dta, replace
+ 18.         
+.         restore
+ 19. }
+--------------group 1---------------
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs                 937
+25%            0              0       Sum of wgt.         937
+
+50%            0                      Mean           457.3511
+                        Largest       Std. dev.      3524.982
+75%            0          29496
+90%            0          42000       Variance       1.24e+07
+95%            0          47100       Skewness       11.41225
+99%        15192          61212       Kurtosis       158.0721
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+exp_edu_pc~o |        937     .963714    .1871008          0          1
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%          600            600
+ 5%          996            996
+10%         1152           1110       Obs                  34
+25%         2748           1152       Sum of wgt.          34
+
+50%         9096                      Mean           12604.06
+                        Largest       Std. dev.      13953.32
+75%        15252          29496
+90%        29496          42000       Variance       1.95e+08
+95%        47100          47100       Skewness       1.954686
+99%        61212          61212       Kurtosis       6.591636
+(file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr1.dta not found)
+file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr1.dta saved
+--------------group 2---------------
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               1,145
+25%            0              0       Sum of wgt.       1,145
+
+50%          180                      Mean           1907.817
+                        Largest       Std. dev.      5293.064
+75%         1500          28692
+90%         5604          33600       Variance       2.80e+07
+95%         9504          49704       Skewness       10.89949
+99%        20100         117000       Kurtosis       206.1647
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+exp_edu_pc~o |      1,145    .4585153    .4984938          0          1
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%           48             12
+ 5%          135             12
+10%          204             24       Obs                 620
+25%          426             24       Sum of wgt.         620
+
+50%         1200                      Mean           3523.306
+                        Largest       Std. dev.      6788.038
+75%         4062          28692
+90%         9150          33600       Variance       4.61e+07
+95%        12996          49704       Skewness       8.844911
+99%        24060         117000       Kurtosis        132.193
+(file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr2.dta not found)
+file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr2.dta saved
+--------------group 3---------------
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%           96              0
+10%          210              0       Obs               2,452
+25%          402              0       Sum of wgt.       2,452
+
+50%          750                      Mean           2276.774
+                        Largest       Std. dev.      4846.467
+75%         1791          44988
+90%         5880          58008       Variance       2.35e+07
+95%         9792          58404       Skewness       6.510669
+99%        22686          88992       Kurtosis       72.91959
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+exp_edu_pc~o |      2,452    .0379282    .1910617          0          1
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%           96             24
+ 5%          198             48
+10%          252             48       Obs               2,359
+25%          444             60       Sum of wgt.       2,359
+
+50%          798                      Mean           2366.532
+                        Largest       Std. dev.      4919.565
+75%         1812          44988
+90%         6068          58008       Variance       2.42e+07
+95%         9900          58404       Skewness       6.419456
+99%        22800          88992       Kurtosis       70.91885
+(file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr3.dta not found)
+file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr3.dta saved
+--------------group 4---------------
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%           48              0
+10%          372              0       Obs               1,048
+25%          678              0       Sum of wgt.       1,048
+
+50%         1308                      Mean           3264.704
+                        Largest       Std. dev.      19745.17
+75%         2700          38004
+90%         5700          44292       Variance       3.90e+08
+95%         9000         200484       Skewness       26.96552
+99%        23904         597000       Kurtosis       791.1821
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+exp_edu_pc~o |      1,048    .0486641    .2152676          0          1
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%          144             24
+ 5%          354             48
+10%          468             72       Obs                 997
+25%          744             96       Sum of wgt.         997
+
+50%         1404                      Mean           3431.705
+                        Largest       Std. dev.      20230.21
+75%         2808          38004
+90%         5856          44292       Variance       4.09e+08
+95%         9354         200484       Skewness       26.33196
+99%        24576         597000       Kurtosis       753.9211
+(file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr4.dta not found)
+file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr4.dta saved
+--------------group 5---------------
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               1,084
+25%          942              0       Sum of wgt.       1,084
+
+50%         2352                      Mean           4341.657
+                        Largest       Std. dev.      19270.43
+75%         4110          41268
+90%         8304          48996       Variance       3.71e+08
+95%        14004         111564       Skewness       28.33254
+99%        27060         606000       Kurtosis       879.2005
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+exp_edu_pc~o |      1,084    .1623616    .3689524          0          1
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%          300            126
+ 5%          600            132
+10%          900            144       Obs                 908
+25%         1608            192       Sum of wgt.         908
+
+50%         2748                      Mean           5183.211
+                        Largest       Std. dev.      20953.33
+75%         4800          41268
+90%         9504          48996       Variance       4.39e+08
+95%        16296         111564       Skewness        26.1996
+99%        27204         606000       Kurtosis       746.9532
+(file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr5.dta not found)
+file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr5.dta saved
+--------------group 6---------------
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%            0              0
+ 5%            0              0
+10%            0              0       Obs               1,771
+25%            0              0       Sum of wgt.       1,771
+
+50%         1200                      Mean           5710.192
+                        Largest       Std. dev.      12095.82
+75%         6096         105096
+90%        15786         109008       Variance       1.46e+08
+95%        24600         114996       Skewness       5.010127
+99%        60852         165000       Kurtosis       40.54994
+
+    Variable |        Obs        Mean    Std. dev.       Min        Max
+-------------+---------------------------------------------------------
+exp_edu_pc~o |      1,771    .4703557    .4992614          0          1
+
+                       exp_edu_pchild
+-------------------------------------------------------------
+      Percentiles      Smallest
+ 1%          648            150
+ 5%         1176            216
+10%         1752            300       Obs                 938
+25%         2892            300       Sum of wgt.         938
+
+50%         5682                      Mean           10781.18
+                        Largest       Std. dev.      14887.87
+75%        13008         105096
+90%        23652         109008       Variance       2.22e+08
+95%        37500         114996       Skewness        4.06513
+99%        75504         165000       Kurtosis       27.12166
+(file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr6.dta not found)
+file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_agegr6.dta saved
+
+. 
+. save $datadir\ses_hhchar.dta, replace
+file C:\Users\sswsa\Desktop\github\village-fund-education/data\ses_hhchar.dta saved
+
+. 
+. log close
+      name:  <unnamed>
+       log:  C:\Users\sswsa\Desktop\github\village-fund-education/log\ses_expense.log
+  log type:  text
+ closed on:   9 Nov 2026, 11:41:47
+----------------------------------------------------------------------------------------------------------------------------------------
